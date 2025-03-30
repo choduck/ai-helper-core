@@ -39,7 +39,7 @@ class Settings(BaseSettings):
     
     # OpenAI API 설정
     OPENAI_API_KEY: str = os.getenv("OPENAI_API_KEY", "")
-    DEFAULT_MODEL: str = "gpt-3.5-turbo"
+    DEFAULT_MODEL: str = "gpt-4o"
     MAX_TOKENS: int = 2048
     TEMPERATURE: float = 0.7
     
