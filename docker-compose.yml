@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  ai-helper-core:
+    build: .
+    container_name: ai-helper-core
+    restart: always
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./app:/app/app
+      - ./chroma_db:/app/chroma_db
+    env_file:
+      - .env
+    networks:
+      - ai-helper-network
+
+  # ChromaDB 서비스 (선택적으로 사용 가능)
+  # chroma-db:
+  #   image: chromadb/chroma:latest
+  #   container_name: chroma-db
+  #   restart: always
+  #   ports:
+  #     - "8001:8000"
+  #   volumes:
+  #     - ./chroma_data:/chroma/chroma
+  #   networks:
+  #     - ai-helper-network
+
+networks:
+  ai-helper-network:
+    driver: bridge 
