@@ -21,10 +21,10 @@ try:
     client = openai.OpenAI()
     
     response = client.chat.completions.create(
-        model="gpt-3.5-turbo",
+        model="gpt-4o",
         messages=[
             {"role": "system", "content": "너는 친절한 AI 어시스턴트야."},
-            {"role": "user", "content": "안녕하세요, 대한민국의 수도는 어디인가요?"}
+            {"role": "user", "content": "OpenAI는 GPT-3 이후 GPT-3.5, GPT-4, 그리고 최신 GPT-4 Turbo까지 출시했으며, 모두 OpenAI API를 통해 사용 가능합니다.?"}
         ],
         temperature=0.7,
         max_tokens=50

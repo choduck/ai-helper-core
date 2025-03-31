@@ -1,5 +1,16 @@
 from typing import List, Optional, Dict, Any
 from pydantic import BaseModel, Field
+import os
+from dotenv import load_dotenv
+
+# .env 파일 로드
+load_dotenv()
+
+# 환경 변수에서 기본 설정 가져오기
+DEFAULT_MODEL = os.getenv("OPENAI_DEFAULT_MODEL", "gpt-4o")
+DEFAULT_TEMPERATURE = float(os.getenv("OPENAI_DEFAULT_TEMPERATURE", "0.7"))
+DEFAULT_MAX_TOKENS = int(os.getenv("OPENAI_MAX_TOKENS", "4096")) if os.getenv("OPENAI_MAX_TOKENS") else None
+DEFAULT_STREAM = os.getenv("OPENAI_STREAM", "False").lower() == "true"
 
 class ChatMessage(BaseModel):
     role: str = Field(..., description="메시지 역할 (system, user, assistant)")
@@ -7,10 +18,10 @@ class ChatMessage(BaseModel):
 
 class ChatRequest(BaseModel):
     messages: List[ChatMessage] = Field(..., description="대화 메시지 리스트")
-    model: Optional[str] = Field(None, description="사용할 모델 (기본값: GPT-3.5)")
-    temperature: Optional[float] = Field(0.7, description="응답 온도 (높을수록 창의적)")
-    max_tokens: Optional[int] = Field(None, description="최대 토큰 수")
-    stream: Optional[bool] = Field(False, description="스트리밍 여부")
+    model: Optional[str] = Field(DEFAULT_MODEL, description=f"사용할 모델 (기본값: {DEFAULT_MODEL})")
+    temperature: Optional[float] = Field(DEFAULT_TEMPERATURE, description="응답 온도 (높을수록 창의적)")
+    max_tokens: Optional[int] = Field(DEFAULT_MAX_TOKENS, description="최대 토큰 수")
+    stream: Optional[bool] = Field(DEFAULT_STREAM, description="스트리밍 여부")
 
 class ChatUsage(BaseModel):
     prompt_tokens: int = Field(..., description="입력 메시지 토큰 수")
