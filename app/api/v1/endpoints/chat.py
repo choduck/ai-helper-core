@@ -8,6 +8,7 @@ from app.schemas.chat import ChatRequest, ChatResponse, ChatMessage
 from app.services.chat import ChatService
 from app.services.auth import get_current_user, User
 
+
 router = APIRouter()
 
 @router.post("/completions", response_model=ChatResponse)
