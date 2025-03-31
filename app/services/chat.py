@@ -68,7 +68,7 @@ class ChatService:
         """
         try:
             if "gpt-4" in model:
-                return tiktoken.encoding_for_model("gpt-4")
+                return tiktoken.encoding_for_model("gpt-4o")
             elif "gpt-3.5" in model:
                 return tiktoken.encoding_for_model("gpt-3.5-turbo")
             else:
@@ -179,10 +179,15 @@ class ChatService:
         채팅 응답을 생성합니다.
         """
         # 기본값 설정
-        model = model or settings.DEFAULT_MODEL
-        temperature = temperature or settings.TEMPERATURE
-        max_tokens = max_tokens or settings.MAX_TOKENS
-        
+        # model = model or settings.DEFAULT_MODEL
+        # temperature = temperature or settings.TEMPERATURE
+        # max_tokens = max_tokens or settings.MAX_TOKENS
+
+        model = "gpt-4o" or settings.DEFAULT_MODEL
+        temperature = 0.7 or settings.TEMPERATURE
+        max_tokens = 2048 or settings.MAX_TOKENS
+ 
+
         # 디버깅 정보 기록
         logger.info(f"채팅 완성 생성 요청: 모델={model}, 온도={temperature}, 최대 토큰={max_tokens}")
         logger.debug(f"메시지 개수: {len(messages)}")
@@ -226,7 +231,7 @@ class ChatService:
             cost = self._calculate_cost(model, prompt_tokens, completion_tokens)
             
             # 토큰 사용량 로깅
-            logger.info(f"토큰 사용량: 프롬프트={prompt_tokens}, 완성={completion_tokens}, 총={total_tokens}, 비용=${cost:.6f}")
+            logger.info(f"토큰 사용량: model={model}, 프롬프트={prompt_tokens}, 완성={completion_tokens}, 총={total_tokens}, 비용=${cost:.6f}")
             
             # 사용량 로깅 (백그라운드로 처리)
             if user_id and org_id:
