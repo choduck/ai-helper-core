@@ -5,6 +5,15 @@ from typing import List, Dict, Any, Optional, Union
 from pydantic import AnyHttpUrl, validator
 from pydantic_settings import BaseSettings
 
+
+from dotenv import load_dotenv
+  
+  # .env 파일 로드
+load_dotenv()
+
+
+
+
 class Settings(BaseSettings):
     # 기본 API 설정
     API_V1_STR: str = "/api/v1"

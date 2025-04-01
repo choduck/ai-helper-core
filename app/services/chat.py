@@ -20,7 +20,7 @@ logging.basicConfig(
     level=logging.DEBUG,
     format='[%(asctime)s] [%(levelname)s] %(message)s',
     handlers=[
-        logging.FileHandler("C:/workspace2/ai-helper/ai-helper-core/openai_debug.log"),
+        logging.FileHandler("/mnt/new-volume/ai-helper-core/openai_debug.log"),
         logging.StreamHandler()
     ]
 )
